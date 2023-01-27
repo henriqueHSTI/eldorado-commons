@@ -33,6 +33,7 @@ public class HeaderInterceptor implements HandlerInterceptor {
             log.info("Endpoint {} don't need authentication ", request.getRequestURI());
             return true;
         } else return authUtils.validateJwtToken(authorization, response);
+
     }
 
 }

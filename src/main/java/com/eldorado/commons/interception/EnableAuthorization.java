@@ -30,18 +30,18 @@ import java.lang.annotation.Target;
                 required = true
         )
 })
-@Import({EnableAuthorization.$.class,
+@Import({EnableAuthorization.Authorization.class,
         InterceptorConfiguration.class,
         HeaderInterceptor.class,
         EldoradoExceptionHandler.class})
 public @interface EnableAuthorization {
 
     @Slf4j
-    class $ implements BeanFactoryPostProcessor {
+    class Authorization implements BeanFactoryPostProcessor {
         @Override
         public void postProcessBeanFactory(final @NonNull ConfigurableListableBeanFactory configurableListableBeanFactory)
                 throws BeansException {
-            log.debug("Activating amqp (listener) module...");
+            log.debug("Enable Authorization module...");
         }
     }
 }
