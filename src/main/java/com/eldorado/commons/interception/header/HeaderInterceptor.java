@@ -7,14 +7,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.util.Objects;
 
 
 @Component
@@ -31,12 +28,11 @@ public class HeaderInterceptor implements HandlerInterceptor {
     @SneakyThrows
     public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         var authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        return Objects.equals("/login", request.getRequestURI()) || authUtils.validateJwtToken(authorization, response);
-    }
-
-    @Bean
-    public AuthUtils authUtils() {
-        return new AuthUtils();
+        log.info("Request Validation to endpoint {} ", request.getRequestURI());
+        if (authUtils.AUTHORIZED_PATHS.contains(request.getRequestURI())) {
+            log.info("Endpoint {} don't need authentication ", request.getRequestURI());
+            return true;
+        } else return authUtils.validateJwtToken(authorization, response);
     }
 
 }

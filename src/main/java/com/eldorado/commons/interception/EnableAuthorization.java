@@ -1,10 +1,12 @@
 package com.eldorado.commons.interception;
 
 
+import com.eldorado.commons.exceptions.EldoradoExceptionHandler;
 import com.eldorado.commons.interception.header.HeaderInterceptor;
 import com.eldorado.commons.interception.header.InterceptorConfiguration;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -30,13 +32,14 @@ import java.lang.annotation.Target;
 })
 @Import({EnableAuthorization.$.class,
         InterceptorConfiguration.class,
-        HeaderInterceptor.class})
+        HeaderInterceptor.class,
+        EldoradoExceptionHandler.class})
 public @interface EnableAuthorization {
 
     @Slf4j
     class $ implements BeanFactoryPostProcessor {
         @Override
-        public void postProcessBeanFactory(final ConfigurableListableBeanFactory configurableListableBeanFactory)
+        public void postProcessBeanFactory(final @NonNull ConfigurableListableBeanFactory configurableListableBeanFactory)
                 throws BeansException {
             log.debug("Activating amqp (listener) module...");
         }

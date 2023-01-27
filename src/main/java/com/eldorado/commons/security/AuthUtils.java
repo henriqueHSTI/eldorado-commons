@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -23,6 +24,8 @@ public class AuthUtils {
 
     @Value("${eldorado.jwt.secret}")
     private String jwtSecret;
+
+    public static final List<String> AUTHORIZED_PATHS = List.of("/user/create", "/user/login", "/error");
 
     @SneakyThrows
     public boolean validateJwtToken(String authToken, HttpServletResponse httpServletResponse) {
