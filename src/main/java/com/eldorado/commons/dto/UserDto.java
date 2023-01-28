@@ -25,5 +25,7 @@ public class UserDto {
     @NonNull
     private String userName;
 
+    private String password;
+
 
 }

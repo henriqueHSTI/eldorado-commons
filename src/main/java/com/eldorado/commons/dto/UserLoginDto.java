@@ -10,6 +10,5 @@ public class UserLoginDto {
 
     @NonNull
     private String userName;
-    @NonNull
     private String password;
 }

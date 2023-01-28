@@ -25,7 +25,7 @@ public class AuthUtils {
     @Value("${eldorado.jwt.secret}")
     private String jwtSecret;
 
-    public static final List<String> AUTHORIZED_PATHS = List.of("/user/create", "/user/login", "/error");
+    public static final List<String> AUTHORIZED_PATHS = List.of("/user/create", "/user/login", "/actuator/health");
 
     @SneakyThrows
     public boolean validateJwtToken(String authToken, HttpServletResponse httpServletResponse) {
